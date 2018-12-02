@@ -18,6 +18,12 @@ Given("the following dishes exist") do |table|
     end
 end
 
+Given("the following shipping method exists") do |table|
+    table.hashes.each do |cartify_delivery|
+        FactoryBot.create(:cartify_delivery, cartify_delivery)
+    end
+  end
+  
 Given('I am logged in as {string}') do |name|
     @user = User.find_by name: name
     login_as @user, scope: :user
@@ -35,6 +41,7 @@ When("I click {string} on {string}") do |button, dish|
         click_on button
     end
 end
+
 When("I click {string}") do |link|
     click_on link
 end
@@ -46,7 +53,26 @@ end
 When("I fill in {string} field with {string}") do |field, input|
     fill_in field, with: input
 end
- 
+
+Given("the user logs in as {string}") do |email|
+    user = User.find_by(email: email)
+    login_as(user, scope: :user)
+end
+
+Then("I select {string} from {string}") do |option, selection|
+    select option, from: selection
+end
+
 Given('show me the page') do
     save_and_open_page
 end
+
+
+Then("I wait {int} second") do |int|
+    sleep int
+end
+
+Then("I click Shipping Method") do
+    find('span', text: 'Pick up').click
+end
+  

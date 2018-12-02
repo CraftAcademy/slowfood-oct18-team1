@@ -13,3 +13,8 @@ Then("I should see {string} in the {string} category") do |dish, category|
         expect(page).to have_content dish
     end
 end
+
+Then("I click billing checkbox") do
+    find('.checkbox-icon').click
+end
+
